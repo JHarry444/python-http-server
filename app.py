@@ -5,7 +5,7 @@ import os
 import socket
 import json
 
-print("Testing 123")
+p
 # create info.json
 os.chdir(os.path.dirname(os.path.realpath(__file__)) + "/public")
 info = {
