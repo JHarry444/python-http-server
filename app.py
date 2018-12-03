@@ -1,23 +1,15 @@
 #!/usr/bin/python
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import socketserver
 import os
-import socket
-import json
 
-# create info.json
-os.chdir(os.path.dirname(os.path.realpath(__file__)) + "/public")
-info = {
-	"host_name": socket.gethostname(),
-	"version": 1
-}
-with open('info.json', 'w') as outfile:
-    json.dump(info, outfile)
+PORT = 8000
 
-# configure and run the server
-PORT = 9000
-Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-httpd = SocketServer.TCPServer(("", PORT), Handler)
-print socket.gethostname()
+web_dir = os.path.join(os.path.dirname(__file__), 'static')
+os.chdir(web_dir)
+
+Handler = http.server.SimpleHTTPRequestHandler
+httpd = socketserver.TCPServer(("", PORT), Handler)
+print("serving at port", PORT)
 httpd.serve_forever()
 
